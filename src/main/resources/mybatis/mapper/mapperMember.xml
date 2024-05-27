@@ -10,5 +10,13 @@
     <select id="getOneUser" resultType="UserVO">
         select * from users where id = #{userNo}
     </select>
+
+    <update id="updateUser">
+        update users set
+            username = #{username},
+            password = #{password},
+            email = #{email}
+        where id = #{id}
+    </update>
 </mapper>
 

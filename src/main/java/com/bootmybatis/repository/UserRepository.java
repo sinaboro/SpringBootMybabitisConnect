@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserRepository {
     public List<UserVO> getAllList();
 
-    public int updateUser();
+    public int updateUser(UserVO user);
     public int insertUser();
 
     public int deleteUser();

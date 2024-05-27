@@ -28,4 +28,16 @@ class UserRepositoryTest {
     public void getOneUser(){
         log.info(userRepository.getOneUser(1));
     }
+
+    @Test
+    public void updateuser(){
+        UserVO user = UserVO.builder()
+                .username("까미")
+                .password("1234")
+                .email("black@black.com")
+                .id(1)
+                .build();
+        log.info("결과 : " + userRepository.updateUser(user));
+
+    }
 }

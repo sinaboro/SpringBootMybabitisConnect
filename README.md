@@ -162,3 +162,6 @@ class UserRepositoryTest {
 
 <h2>7. 1건 데이타 조회 코드 </h2>
 <img src="/images/mybatis08.PNG">
+
+<h2>8. 수정하기 코드 </h2>
+<img src="/images/mybatis09.PNG">
