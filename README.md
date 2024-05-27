@@ -29,6 +29,7 @@ spring.datasource.password=1234
 # mybatis 설정
 mybatis.type-aliases-package=com.bootMybatis.vo
 mybatis.mapper-locations=mybatis/mapper/**/*.xml
+```
 
 ```java
 package com.security.entity;
