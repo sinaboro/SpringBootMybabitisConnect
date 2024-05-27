@@ -6,4 +6,9 @@
     <select id="getAllList" resultType="UserVO">
         select * from users
     </select>
+
+    <select id="getOneUser" resultType="UserVO">
+        select * from users where id = #{userNo}
+    </select>
 </mapper>
+

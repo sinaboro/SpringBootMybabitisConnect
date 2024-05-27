@@ -23,4 +23,9 @@ class UserRepositoryTest {
 
         lists.forEach(list-> log.info(list));
     }
+
+    @Test
+    public void getOneUser(){
+        log.info(userRepository.getOneUser(1));
+    }
 }

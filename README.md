@@ -157,3 +157,8 @@ class UserRepositoryTest {
     }
 }
 ```
+
+<img src="/images/mybatis07.PNG">
+
+<h2>7. 1건 데이타 조회 코드 </h2>
+<img src="/images/mybatis08.PNG">

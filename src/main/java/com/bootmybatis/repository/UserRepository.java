@@ -8,4 +8,11 @@ import java.util.List;
 @Mapper
 public interface UserRepository {
     public List<UserVO> getAllList();
+
+    public int updateUser();
+    public int insertUser();
+
+    public int deleteUser();
+
+    public UserVO getOneUser(int userNo);
 }
