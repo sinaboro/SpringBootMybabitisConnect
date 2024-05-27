@@ -165,3 +165,155 @@ class UserRepositoryTest {
 
 <h2>8. 수정하기 코드 </h2>
 <img src="/images/mybatis09.PNG">
+
+
+<h2>9. mapperMember.xml 전체파일 </h2>
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bootmybatis.repository.UserRepository">
+    <select id="getAllList" resultType="UserVO">
+        select * from users
+    </select>
+
+    <select id="getOneUser" resultType="UserVO">
+        select * from users where id = #{userNo}
+    </select>
+
+    <update id="updateUser">
+        update users set
+            username = #{username},
+            password = #{password},
+            email = #{email}
+        where id = #{id}
+    </update>
+</mapper>
+
+
+```
+
+<h2>10. UserRepository 전체파일 </h2>
+
+```java
+package com.bootmybatis.repository;
+
+import com.bootmybatis.vo.UserVO;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
+
+@Mapper
+public interface UserRepository {
+    public List<UserVO> getAllList();
+
+    public int updateUser(UserVO user);
+    public int insertUser();
+
+    public int deleteUser();
+
+    public UserVO getOneUser(int userNo);
+}
+
+```
+
+<h2>11. UserRepositoryTest 전체파일 </h2>
+
+```java
+package com.bootmybatis.repository;
+
+import com.bootmybatis.vo.UserVO;
+import lombok.extern.log4j.Log4j2;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest
+@Log4j2
+class UserRepositoryTest {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Test
+    public void testAllList(){
+        List<UserVO> lists = userRepository.getAllList();
+
+        lists.forEach(list-> log.info(list));
+    }
+
+    @Test
+    public void getOneUser(){
+        log.info(userRepository.getOneUser(1));
+    }
+
+    @Test
+    public void updateuser(){
+        UserVO user = UserVO.builder()
+                .username("까미")
+                .password("1234")
+                .email("black@black.com")
+                .id(1)
+                .build();
+        log.info("결과 : " + userRepository.updateUser(user));
+
+    }
+}
+```
+<h2>12. build.gradle 전체파일 </h2>
+
+```java
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.0'
+    id 'io.spring.dependency-management' version '1.1.5'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+
+    //lombok test configuration
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+```
