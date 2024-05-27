@@ -42,9 +42,85 @@ spring.datasource.password=1234
 
 # mybatis 설정
 mybatis.type-aliases-package=com.bootMybatis.vo
-mybatis.mapper-locations=mybatis/mapper/**/*.xml
+mybatis.mapper-locations=mybatis/mapper/*.xml
 ```
 
 <h2>2. 프로젝트 구조 </h2>
 <img src="/images/mybatis03.PNG">
 
+
+<h2>3. UserVO </h2>
+
+```java
+package com.bootmybatis.vo;
+
+import lombok.*;
+
+import java.util.Date;
+
+/*
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    email VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+ */
+@Setter
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class UserVO {
+    private int id;
+    private String username;
+    private String password;
+    private String email;
+    private Date created_at;
+}
+
+```
+
+<h2>4. UserRepository </h2>
+
+```java
+package com.bootmybatis.repository;
+
+import com.bootmybatis.vo.UserVO;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
+
+/*
+SpringBoot의 @Mapper를 사용하게 되면 
+application.properties에서 설정한 경로를 바탕으로 알아서 쿼리 
+xml 파일과 매핑 
+@mapper 사용하기 위해서는 build.gradle() 아래 문장 추가
+// https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
+implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+*/
+@Mapper
+public interface UserRepository {
+    public List<UserVO> getAllList();
+}
+
+```
+
+<h2>5. mapperMember.xml </h2>
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bootmybatis.repository.UserRepository">
+    <select id="getAllList" resultType="UserVO">
+        select * from users
+    </select>
+</mapper>
+```
+
+<img src="/images/mybatis04.PNG">
+<img src="/images/mybatis05.PNG">
