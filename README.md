@@ -1,6 +1,6 @@
-# SpringBootMybabitisConnect
+# SpringBootMybatisConnect
 
-<h1>Proejct 설정</h1># EecurityEx01
+<h1>Proejct 설정</h1>
 
 <h2>1. DB설정(mysql) </h2>
 
